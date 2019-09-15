@@ -1,6 +1,4 @@
-package com.swf.simple.user.Service;
-
-import static org.junit.Assert.*;
+package com.swf.simple.user.service;
 
 /**
  * @author SWF

@@ -247,25 +247,12 @@ public class StringUtil {
 		Set<String> emptyNames = new HashSet<String>();
 		for (java.beans.PropertyDescriptor pd : pds) {
 			Object srcValue = src.getPropertyValue(pd.getName());
-			if (srcValue == null || (srcValue instanceof String ? srcValue.toString().trim().equals("") : false)){
+			if (srcValue == null || (srcValue instanceof String ? "".equals(srcValue.toString().trim()) : false)){
 				emptyNames.add(pd.getName());
 			}
 		}
 		String[] result = new String[emptyNames.size()];
 		return emptyNames.toArray(result);
-	}
-
-	/**
-	 * 去除问题标签中无效的字符
-	 * 
-	 * @param s
-	 * @return
-	 */
-	public static String trimInvalidStr(String tag) {
-		if (tag != null) {
-			tag = tag.replaceAll("；", ";").replaceAll(" ", "").trim();
-		}
-		return tag;
 	}
 
 	/**
@@ -293,7 +280,7 @@ public class StringUtil {
 				|| ((codePoint >= 0x10000) && (codePoint <= 0x10FFFF)));
 	}
 
-	private static final Pattern emoji = Pattern.compile("[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]",
+	private static final Pattern EMOJI = Pattern.compile("[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]",
 			Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);
 	/**
 	 * 过滤emoji表情
@@ -303,7 +290,7 @@ public class StringUtil {
 	 */
 	public static String filterEmoji(String source) {
 		if (source != null) {
-			Matcher emojiMatcher = emoji.matcher(source);
+			Matcher emojiMatcher = EMOJI.matcher(source);
 			if (emojiMatcher.find()) {
 				source = emojiMatcher.replaceAll("");
 				return source;

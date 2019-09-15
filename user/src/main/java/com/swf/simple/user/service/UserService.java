@@ -1,4 +1,4 @@
-package com.swf.simple.user.Service;
+package com.swf.simple.user.service;
 
 import com.swf.simple.user.entity.User;
 

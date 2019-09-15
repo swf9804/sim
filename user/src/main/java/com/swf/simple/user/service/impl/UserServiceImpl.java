@@ -1,7 +1,7 @@
-package com.swf.simple.user.Service.impl;
+package com.swf.simple.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.swf.simple.user.Service.UserService;
+import com.swf.simple.user.service.UserService;
 import com.swf.simple.user.entity.User;
 import com.swf.simple.user.mapper.UserMapper;
 import com.swf.simple.user.utils.MD5Util;

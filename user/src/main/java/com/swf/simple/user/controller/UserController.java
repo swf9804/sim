@@ -1,12 +1,11 @@
 package com.swf.simple.user.controller;
 
-import com.swf.simple.user.Service.UserService;
+import com.swf.simple.user.service.UserService;
 import com.swf.simple.user.entity.User;
 import com.swf.simple.user.request.UserLoginRequest;
 import com.swf.simple.user.request.UserRegisterRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

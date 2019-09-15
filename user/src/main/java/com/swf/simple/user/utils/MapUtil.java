@@ -42,7 +42,7 @@ public class MapUtil {
         double vLat = Math.abs(lat1 - lat2);
 
         //h is the great circle distance in radians, great circle就是一个球体上的切面，它的圆心即是球心的一个周长最大的圆。
-        double h = HaverSin(vLat) + Math.cos(lat1) * Math.cos(lat2) * HaverSin(vLon);
+        double h = haverSin(vLat) + Math.cos(lat1) * Math.cos(lat2) * haverSin(vLon);
         // 弧长*地球半径
         double distance = 2 * Math.asin(Math.sqrt(h)) * EARTH_RADIUS;
         //精确距离的数值
@@ -52,7 +52,7 @@ public class MapUtil {
         return df.format(distance);
     }
 
-    public static double HaverSin(double theta) {
+    public static double haverSin(double theta) {
         double v = Math.sin(theta / 2);
         return v * v;
     }
