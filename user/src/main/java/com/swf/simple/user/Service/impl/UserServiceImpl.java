@@ -1,15 +1,13 @@
 package com.swf.simple.user.Service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.swf.simple.user.Service.UserService;
 import com.swf.simple.user.entity.User;
 import com.swf.simple.user.mapper.UserMapper;
+import com.swf.simple.user.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.alibaba.druid.sql.visitor.SQLEvalVisitorUtils.eq;
 
 /**
  * @author SWF
@@ -29,12 +27,14 @@ public class UserServiceImpl implements UserService {
 //        );
         return userMapper.selectOne(new LambdaQueryWrapper<User>()
                 .eq(User::getUsername, username)
-                .eq(User::getPassword, password)
+                .eq(User::getPassword, MD5Util.MD5(password))
         );
     }
 
     @Override
     public User register(User user) {
+        String psd = MD5Util.MD5(user.getPassword());
+        user.setPassword(psd);
         userMapper.insert(user);
         return user;
     }
@@ -43,4 +43,6 @@ public class UserServiceImpl implements UserService {
     public User get(Integer id) {
         return userMapper.selectById(id);
     }
+
+
 }

@@ -1,7 +1,8 @@
 package com.swf.simple.user.utils;
 
-import com.springboot.framework.enums.Errors;
-import com.springboot.framework.exception.BusinessException;
+
+import com.swf.simple.user.enums.Errors;
+import com.swf.simple.user.exception.BusinessException;
 
 /**
  * 异常工具类

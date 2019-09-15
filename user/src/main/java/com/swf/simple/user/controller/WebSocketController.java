@@ -4,6 +4,8 @@ import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
@@ -14,7 +16,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @Component
 public class WebSocketController {
     // 用来存放每个客户端对应的MyWebSocket对象
-    private static CopyOnWriteArraySet<WebSocketController> webSocketControllers = new CopyOnWriteArraySet<>();
+    private static Map<Integer,WebSocketController> webSocketControllers = new ConcurrentHashMap<>();
 
     private Session session;
 
@@ -23,7 +25,7 @@ public class WebSocketController {
 
         this.session = session;
 
-        webSocketControllers.add(this);
+        webSocketControllers.put(111,this);
 
         System.out.println("有新连接加入! 当前在线人数为" + webSocketControllers.size());
 
@@ -48,15 +50,15 @@ public class WebSocketController {
         error.printStackTrace();
     }
 
-    /**
-     * 群发自定义消息
-     * @param message
-     */
-    public void broadcast(String message) {
-        for (WebSocketController item : webSocketControllers) {
-            // 异步发送消息
-            item.session.getAsyncRemote().sendText(message);
-        }
-    }
+//    /**
+//     * 群发自定义消息
+//     * @param message
+//     */
+//    public void broadcast(String message) {
+//        for (WebSocketController item : webSocketControllers) {
+//            // 异步发送消息
+//            item.session.getAsyncRemote().sendText(message);
+//        }
+//    }
 
 }
