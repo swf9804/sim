@@ -1,4 +1,4 @@
-package com.swf.simple.user.config;
+package com.swf.simple.imserver.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

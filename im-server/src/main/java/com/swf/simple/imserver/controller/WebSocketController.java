@@ -1,22 +1,22 @@
-package com.swf.simple.user.controller;
+package com.swf.simple.imserver.controller;
 
+import com.swf.simple.imserver.util.ConnectionHolder;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * @author SWF
  * @date 2019/9/14 22:00
  **/
-@ServerEndpoint("/websocket")
+@ServerEndpoint("/websocket/{token}")
 @Component
+@Log4j2
 public class WebSocketController {
-    // 用来存放每个客户端对应的MyWebSocket对象
-    private static Map<Integer,WebSocketController> webSocketControllers = new ConcurrentHashMap<>();
 
     private Session session;
 
@@ -25,17 +25,17 @@ public class WebSocketController {
 
         this.session = session;
 
-        webSocketControllers.put(111,this);
+        ConnectionHolder.put(111, this);
 
-        System.out.println("有新连接加入! 当前在线人数为" + webSocketControllers.size());
+        log.info("有新连接加入! 当前在线人数为{}",ConnectionHolder.size());
 
-        this.session.getAsyncRemote().sendText("恭喜您成功连接上WebSocket --> 当前在线人数");
+        sendText("恭喜你，连接成功，当前在线人数："+ ConnectionHolder.size());
     }
 
     @OnClose
     public void onClose() {
-        webSocketControllers.remove(this);
-        System.out.println("有一个连接关闭！当前在线人数为" + webSocketControllers.size());
+        ConnectionHolder.remove(this);
+        log.info("有一个连接关闭! 当前在线人数为{}",ConnectionHolder.size());
     }
 
     @OnMessage
@@ -60,5 +60,9 @@ public class WebSocketController {
 //            item.session.getAsyncRemote().sendText(message);
 //        }
 //    }
+
+    public void sendText(String text){
+        this.session.getAsyncRemote().sendText(text);
+    }
 
 }
