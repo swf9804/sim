@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/sim?zeroDateTimeBehavior=CONVERT_TO_NULL&useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2b8
+      username: root
+      password:
+      driver-class-name: com.mysql.jdbc.Driver
+      initial-size: 2
+      max-active: 2
+    jmx-enabled: true
+
+
