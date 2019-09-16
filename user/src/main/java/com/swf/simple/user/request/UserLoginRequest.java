@@ -11,8 +11,8 @@ import javax.validation.constraints.Pattern;
  **/
 @Data
 public class UserLoginRequest {
-    @Pattern(regexp = Regex.REGEX_USERNAME, message = "姓名必须为汉字")
+    @Pattern(regexp = Regex.REGEX_USERNAME, message = "用户名格式不正确")
     String username;
-    @Pattern(regexp = Regex.REGEX_PASSWORD, message = "姓名必须为汉字")
+    @Pattern(regexp = Regex.REGEX_PASSWORD, message = "密码格式不正确")
     String password;
 }

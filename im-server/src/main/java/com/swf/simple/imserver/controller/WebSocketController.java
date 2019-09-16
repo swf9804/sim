@@ -1,10 +1,14 @@
 package com.swf.simple.imserver.controller;
 
 import com.swf.simple.imserver.util.ConnectionHolder;
+import com.swf.simple.user.service.UserSessionService;
+import com.swf.simple.user.vo.UserVO;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
+import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,12 +22,17 @@ import java.util.concurrent.ConcurrentHashMap;
 @Log4j2
 public class WebSocketController {
 
+
+    private UserSessionService<UserVO> userSessionService;
+
     private Session session;
 
     @OnOpen
-    public void onOpen(Session session) {
+    public void onOpen(Session session,@PathParam("token") String accessToken) {
 
         this.session = session;
+
+        userSessionService.getSession(accessToken,UserVO.class);
 
         ConnectionHolder.put(111, this);
 

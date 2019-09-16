@@ -27,13 +27,13 @@ public class UserServiceImpl implements UserService {
 //        );
         return userMapper.selectOne(new LambdaQueryWrapper<User>()
                 .eq(User::getUsername, username)
-                .eq(User::getPassword, MD5Util.MD5(password))
+                .eq(User::getPassword, MD5Util.toMD5(password))
         );
     }
 
     @Override
     public User register(User user) {
-        String psd = MD5Util.MD5(user.getPassword());
+        String psd = MD5Util.toMD5(user.getPassword());
         user.setPassword(psd);
         userMapper.insert(user);
         return user;
