@@ -1,7 +1,7 @@
-package com.swf.simple.user.utils;
+package com.swf.simple.user.util;
 
-import com.swf.simple.user.enums.Errors;
-import com.swf.simple.user.exception.BusinessException;
+import com.swf.simple.common.enums.Errors;
+import com.swf.simple.common.exception.BusinessException;
 import com.swf.simple.user.vo.ResponseVO;
 import org.springframework.http.HttpStatus;
 
@@ -25,7 +25,7 @@ public class ResponseVoUtil {
         return success(null);
     }
 
-    public static <T> ResponseVO<T> fail(Integer code, String message) {
+    public static <T> com.swf.simple.user.vo.ResponseVO fail(Integer code, String message) {
         ResponseVO<T> entity = new ResponseVO<T>();
         entity.setHttpStatus(HttpStatus.OK.value());
         entity.setTimestamp(Long.valueOf(System.currentTimeMillis()));

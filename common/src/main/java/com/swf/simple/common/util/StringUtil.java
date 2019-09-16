@@ -1,4 +1,4 @@
-package com.swf.simple.user.utils;
+package com.swf.simple.common.util;
 
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;

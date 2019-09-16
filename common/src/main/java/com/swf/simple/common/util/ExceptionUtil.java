@@ -1,8 +1,8 @@
-package com.swf.simple.user.utils;
+package com.swf.simple.common.util;
 
 
-import com.swf.simple.user.enums.Errors;
-import com.swf.simple.user.exception.BusinessException;
+import com.swf.simple.common.enums.Errors;
+import com.swf.simple.common.exception.BusinessException;
 
 /**
  * 异常工具类

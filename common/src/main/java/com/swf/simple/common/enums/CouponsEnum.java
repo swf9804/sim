@@ -1,4 +1,4 @@
-package com.swf.simple.user.enums;
+package com.swf.simple.common.enums;
 
 import lombok.Getter;
 

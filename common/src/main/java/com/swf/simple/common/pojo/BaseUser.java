@@ -1,4 +1,4 @@
-package com.swf.simple.user.vo;
+package com.swf.simple.common.pojo;
 
 import lombok.Data;
 

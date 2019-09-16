@@ -1,4 +1,4 @@
-package com.swf.simple.user.utils;
+package com.swf.simple.user.util;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;

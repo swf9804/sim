@@ -1,4 +1,4 @@
-package com.swf.simple.user.request;
+package com.swf.simple.user.controller.request;
 
 import com.swf.simple.user.constant.Regex;
 import lombok.Data;

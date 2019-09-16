@@ -1,3 +1,5 @@
+
+
 spring:
   datasource:
     druid:
@@ -24,4 +26,13 @@ spring:
       date-format: yyyy-MM-dd HH:mm:ss
       time-zone: GMT+8
 
-
+dubbo:
+  application:
+    name: user_session_provider
+  registry:
+    address: zookeeper://106.14.185.58:2181
+  protocol:
+    name: dubbo
+    port: 20801
+server:
+  port: 8082

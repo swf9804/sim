@@ -1,10 +1,10 @@
 package com.swf.simple.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.swf.simple.common.util.MD5Util;
 import com.swf.simple.user.service.UserService;
 import com.swf.simple.user.entity.User;
 import com.swf.simple.user.mapper.UserMapper;
-import com.swf.simple.user.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

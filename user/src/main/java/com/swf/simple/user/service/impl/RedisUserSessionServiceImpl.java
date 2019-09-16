@@ -1,19 +1,18 @@
 package com.swf.simple.user.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.swf.simple.common.pojo.BaseUser;
+import com.swf.simple.common.util.StringUtil;
 import com.swf.simple.user.constant.Const;
 import com.swf.simple.user.service.UserSessionService;
-import com.swf.simple.user.utils.RedisUtil;
-import com.swf.simple.user.utils.StringUtil;
-import com.swf.simple.user.vo.BaseUser;
+import com.swf.simple.user.util.RedisUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author SWF

@@ -1,4 +1,4 @@
-package com.swf.simple.user.utils;
+package com.swf.simple.common.util;
 
 import java.text.DateFormat;
 import java.text.ParseException;

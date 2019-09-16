@@ -1,7 +1,6 @@
 package com.swf.simple.user.service;
 
-import com.swf.simple.user.entity.User;
-import com.swf.simple.user.vo.BaseUser;
+import com.swf.simple.common.pojo.BaseUser;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Type;
@@ -10,7 +9,7 @@ import java.lang.reflect.Type;
  * @author SWF
  * @date 2019/9/15 21:25
  **/
-public interface UserSessionService<T extends BaseUser> {
+public interface UserSessionService<T extends BaseUser>{
     /**
      * 缓存用户信息，JSON格式
      * @param request

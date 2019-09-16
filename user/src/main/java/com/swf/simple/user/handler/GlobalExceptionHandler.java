@@ -1,7 +1,7 @@
 package com.swf.simple.user.handler;
 
-import com.swf.simple.user.exception.BusinessException;
-import com.swf.simple.user.utils.ResponseVoUtil;
+import com.swf.simple.common.exception.BusinessException;
+import com.swf.simple.user.util.ResponseVoUtil;
 import com.swf.simple.user.vo.ResponseVO;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

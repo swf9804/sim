@@ -1,10 +1,9 @@
-package com.swf.simple.user.request;
+package com.swf.simple.user.controller.request;
 
 import com.swf.simple.user.constant.Regex;
 import lombok.Data;
 
 import javax.validation.constraints.Pattern;
-import java.util.Date;
 
 /**
  * @author SWF

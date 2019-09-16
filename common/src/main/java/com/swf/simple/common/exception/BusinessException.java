@@ -1,5 +1,5 @@
-package com.swf.simple.user.exception;
-import com.swf.simple.user.enums.Errors;
+package com.swf.simple.common.exception;
+import com.swf.simple.common.enums.Errors;
 import lombok.Data;
 
 

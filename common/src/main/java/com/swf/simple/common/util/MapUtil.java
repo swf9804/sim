@@ -1,6 +1,5 @@
-package com.swf.simple.user.utils;
+package com.swf.simple.common.util;
 
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 /**

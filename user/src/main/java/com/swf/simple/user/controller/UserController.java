@@ -1,14 +1,15 @@
 package com.swf.simple.user.controller;
 
+import com.swf.simple.common.pojo.UserInfoVO;
 import com.swf.simple.user.service.UserService;
 import com.swf.simple.user.entity.User;
-import com.swf.simple.user.request.UserLoginRequest;
-import com.swf.simple.user.request.UserRegisterRequest;
+import com.swf.simple.user.controller.request.UserLoginRequest;
+import com.swf.simple.user.controller.request.UserRegisterRequest;
 import com.swf.simple.user.service.UserSessionService;
-import com.swf.simple.user.utils.ResponseVoUtil;
+import com.swf.simple.user.util.ResponseVoUtil;
 import com.swf.simple.user.vo.ResponseVO;
-import com.swf.simple.user.vo.UserVO;
 import io.swagger.annotations.ApiOperation;
+import jdk.nashorn.internal.ir.annotations.Reference;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -30,17 +31,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserSessionService<UserVO> userSessionService;
+    @Reference
+    private UserSessionService<UserInfoVO> userSessionService;
 
     @ApiOperation("登录")
     @PostMapping("/login")
-    public ResponseVO<UserVO> login(@Valid UserLoginRequest bean, BindingResult bindingResult, HttpServletRequest request){
+    public ResponseVO<UserInfoVO> login(@Valid UserLoginRequest bean, BindingResult bindingResult, HttpServletRequest request){
         if(bindingResult.hasErrors()){
             throw new RuntimeException(bindingResult.getFieldError().getDefaultMessage());
         }
         User user = userService.login(bean.getUsername(),bean.getPassword());
-        UserVO userVO = new UserVO();
+        UserInfoVO userVO = new UserInfoVO();
         BeanUtils.copyProperties(user,userVO);
         userVO = userSessionService.saveSession(request,userVO);
         return ResponseVoUtil.success(userVO);

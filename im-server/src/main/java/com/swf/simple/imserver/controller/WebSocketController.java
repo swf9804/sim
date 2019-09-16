@@ -1,17 +1,15 @@
 package com.swf.simple.imserver.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.swf.simple.common.pojo.UserInfoVO;
 import com.swf.simple.imserver.util.ConnectionHolder;
 import com.swf.simple.user.service.UserSessionService;
-import com.swf.simple.user.vo.UserVO;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author SWF
@@ -22,8 +20,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @Log4j2
 public class WebSocketController {
 
-
-    private UserSessionService<UserVO> userSessionService;
+    @Reference(check = false)
+    private UserSessionService<UserInfoVO> userSessionService;
+    // 此注解与websocket冲突,
 
     private Session session;
 
@@ -31,10 +30,14 @@ public class WebSocketController {
     public void onOpen(Session session,@PathParam("token") String accessToken) {
 
         this.session = session;
+        UserInfoVO userInfoVO = null;
+        log.info("accessToken为：【{}】",accessToken);
+        userSessionService.getSession(accessToken,UserInfoVO.class);
+        if(userInfoVO == null){
+            throw new RuntimeException("请登录");
+        }
 
-        userSessionService.getSession(accessToken,UserVO.class);
-
-        ConnectionHolder.put(111, this);
+        ConnectionHolder.put(userInfoVO.getId(), this);
 
         log.info("有新连接加入! 当前在线人数为{}",ConnectionHolder.size());
 
