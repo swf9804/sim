@@ -26,6 +26,7 @@ public class RedisUserSessionServiceImpl<T extends BaseUser> implements UserSess
 
     /**
      * 缓存用户信息，JSON格式
+     *
      * @param request
      * @param user
      */
@@ -52,6 +53,7 @@ public class RedisUserSessionServiceImpl<T extends BaseUser> implements UserSess
 
     /**
      * 获取缓存用户，不为空，重新设置缓存中用户的过期时间
+     *
      * @param request
      * @return
      */
@@ -64,23 +66,24 @@ public class RedisUserSessionServiceImpl<T extends BaseUser> implements UserSess
             // ExceptionUtil.throwException(Errors.SYSTEM_NOT_LOGIN);
             return null;
         }
-        return JSON.parseObject(jsonStr,type);
+        return JSON.parseObject(jsonStr, type);
     }
 
     /**
      * 根据accessToken获取缓存用户
+     *
      * @param accessToken
      * @return
      */
     @Override
-    public T getSession(String accessToken,Type type) {
-        String jsonStr = (String) redisUtil.get(accessToken);
+    public T getSession(String accessToken, Type type) {
+        String jsonStr = (String) redisUtil.get(Const.SERVER_USER_KEY + accessToken);
 
         if (StringUtil.isBlank(jsonStr)) {
             // ExceptionUtil.throwException(Errors.SYSTEM_NOT_LOGIN);
             return null;
         }
-        return JSON.parseObject(jsonStr,type);
+        return JSON.parseObject(jsonStr, type);
     }
 
     /**
@@ -89,11 +92,11 @@ public class RedisUserSessionServiceImpl<T extends BaseUser> implements UserSess
      * @param request
      */
     @Override
-    public void removeSession(HttpServletRequest request,Type type) {
+    public void removeSession(HttpServletRequest request, Type type) {
         String key = getUserSessionKey(request);
         String jsonStr = (String) redisUtil.get(key);
         if (StringUtil.isNotBlank(jsonStr)) {
-            String accesskey = Const.SERVER_USER_KEY + ((T)(JSON.parseObject(jsonStr, type))).getId();
+            String accesskey = Const.SERVER_USER_KEY + ((T) (JSON.parseObject(jsonStr, type))).getId();
             redisUtil.del(accesskey);
             redisUtil.del(key);
         }
@@ -106,6 +109,7 @@ public class RedisUserSessionServiceImpl<T extends BaseUser> implements UserSess
 
     /**
      * 拼装request传入的key
+     *
      * @param request
      * @return
      */
@@ -119,6 +123,7 @@ public class RedisUserSessionServiceImpl<T extends BaseUser> implements UserSess
      * 获取request传入的key
      * 同时使用，使用token保存登录信息，优先使用token，如果获取失败则取session
      * </pre>
+     *
      * @param request
      */
     private String getSessionKey(HttpServletRequest request) {
