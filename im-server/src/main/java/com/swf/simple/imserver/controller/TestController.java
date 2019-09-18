@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/test")
 public class TestController {
 
-    @Reference(check = false)
+    @Reference
     private UserSessionService<UserInfoVO> userSessionService;
 
     @ResponseBody

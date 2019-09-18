@@ -5,6 +5,7 @@ import com.swf.simple.common.pojo.UserInfoVO;
 import com.swf.simple.imserver.util.ConnectionHolder;
 import com.swf.simple.user.service.UserSessionService;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
@@ -20,9 +21,13 @@ import javax.websocket.server.ServerEndpoint;
 @Log4j2
 public class WebSocketController {
 
-    @Reference(check = false)
-    private UserSessionService<UserInfoVO> userSessionService;
+    private static UserSessionService<UserInfoVO> userSessionService;
     // 此注解与websocket冲突,
+
+    @Reference
+    public void setUserSessionServiceProxy(UserSessionService userSessionService) {
+        WebSocketController.userSessionService = userSessionService;
+    }
 
     private Session session;
 
@@ -30,14 +35,10 @@ public class WebSocketController {
     public void onOpen(Session session,@PathParam("token") String accessToken) {
 
         this.session = session;
-        UserInfoVO userInfoVO = null;
         log.info("accessToken为：【{}】",accessToken);
-        userSessionService.getSession(accessToken,UserInfoVO.class);
-        if(userInfoVO == null){
-            throw new RuntimeException("请登录");
-        }
-
-        ConnectionHolder.put(userInfoVO.getId(), this);
+//        UserInfoVO userInfoVO = userSessionService.getSession(accessToken,UserInfoVO.class);
+//
+//        ConnectionHolder.put(userInfoVO.getId(), this);
 
         log.info("有新连接加入! 当前在线人数为{}",ConnectionHolder.size());
 
