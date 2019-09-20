@@ -14,9 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -25,7 +23,9 @@ import javax.validation.Valid;
  * @author SWF
  * @date 2019/9/14 21:45
  **/
-@RestController("/app")
+//@CrossOrigin(origins = "http://domain2.com", maxAge = 3600) // 解决跨域的注解
+@RestController
+@RequestMapping("/app")
 public class UserController {
 
     @Autowired
@@ -36,7 +36,7 @@ public class UserController {
 
     @ApiOperation("登录")
     @PostMapping("/login")
-    public ResponseVO<UserInfoVO> login(@Valid UserLoginRequest bean, BindingResult bindingResult, HttpServletRequest request) {
+    public ResponseVO<UserInfoVO> login(@Valid @RequestBody UserLoginRequest bean, BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             throw new BusinessException(bindingResult.getFieldError().getDefaultMessage());
         }

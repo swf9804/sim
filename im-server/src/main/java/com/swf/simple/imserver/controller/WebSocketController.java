@@ -21,8 +21,8 @@ import javax.websocket.server.ServerEndpoint;
 @Log4j2
 public class WebSocketController {
 
+    // websocket的切入点与自动注入冲突，以此方式注入可解决
     private static UserSessionService<UserInfoVO> userSessionService;
-    // 此注解与websocket冲突,
 
     @Reference
     public void setUserSessionServiceProxy(UserSessionService userSessionService) {
@@ -36,9 +36,8 @@ public class WebSocketController {
 
         this.session = session;
         log.info("accessToken为：【{}】",accessToken);
-//        UserInfoVO userInfoVO = userSessionService.getSession(accessToken,UserInfoVO.class);
-//
-//        ConnectionHolder.put(userInfoVO.getId(), this);
+        UserInfoVO userInfoVO = userSessionService.getSession(accessToken,UserInfoVO.class);
+        ConnectionHolder.put(userInfoVO.getId(), this);
 
         log.info("有新连接加入! 当前在线人数为{}",ConnectionHolder.size());
 
@@ -51,9 +50,25 @@ public class WebSocketController {
         log.info("有一个连接关闭! 当前在线人数为{}",ConnectionHolder.size());
     }
 
+    /**
+     * 收到客户端消息的监听方法
+     * 负责处理、转发消息
+     * @param message
+     * @param session
+     */
     @OnMessage
     public void onMessage(String message, Session session) {
-        System.out.println("来自客户端的消息：" + message);
+        log.info("来自客户端的消息：" + message);
+
+        // 将json消息转为msg对象SimRequestProto。
+
+        // 判断是群发还是单聊
+
+        // 如果是群发，则循环的转发给群内的每个人
+
+        // 如果是单聊，则转发给指定用户
+
+        // 需要查询该用户是否存在，是否在线
     }
 
     @OnError
