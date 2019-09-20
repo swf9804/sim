@@ -23,7 +23,7 @@ import javax.validation.Valid;
  * @author SWF
  * @date 2019/9/14 21:45
  **/
-//@CrossOrigin(origins = "http://domain2.com", maxAge = 3600) // 解决跨域的注解
+// @CrossOrigin(origins = "*", maxAge = 3600) // 解决跨域的注解
 @RestController
 @RequestMapping("/app")
 public class UserController {
@@ -72,5 +72,26 @@ public class UserController {
     public ResponseVO<UserInfoVO> getBySession(HttpServletRequest request) {
         UserInfoVO userInfoVO = userSessionService.getSession(request, UserInfoVO.class);
         return ResponseVoUtil.success(userInfoVO);
+    }
+
+    /**
+     * 查看所有用户,包括在线状态
+     */
+    public void listUser(){
+
+    }
+
+    /**
+     * 查看所有在线用户
+     */
+    public void listOnlineUser(){
+
+    }
+
+    /**
+     * 昵称，用户名，手机号精确搜索
+     */
+    public void searchUser(){
+
     }
 }
